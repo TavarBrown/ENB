@@ -50,8 +50,7 @@
   document.getElementById("loginButton").addEventListener("click", function (e){
     e.preventDefault();
     
-    console.log("TEST");
-      $.ajax("http://localhost:5000/users/login", {
+      $.ajax("http://172.16.188.69:5000/users/login", {
         contentType: 'application/json',
         type: 'POST',
         data: JSON.stringify({
@@ -61,9 +60,13 @@
         success: function(response){
           console.log(response);
           if (response.success == true){
-            localStorage.setItem("loggedIn", "true"),
+            localStorage.setItem("loggedIn", "true");
+              if ($("#login").val() =="tavarb@yahoo.com"){
+            localStorage.setItem("admin","true")
+          }
             window.location.replace("notices.html");
           }
+          
             //alert('User login Succesfully');
           },
         error: function (error){

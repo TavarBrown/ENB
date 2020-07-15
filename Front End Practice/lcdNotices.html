@@ -44,16 +44,16 @@
 
        function allNotices(){
 
-          $.get("http://localhost:5000/notices", function (Notice,status){
+          $.get("http://172.16.188.69:5000/notices", function (Notice,status){
             
             if (status=='success'){
               console.log(Notice);
               $("#allNotices").html ("");
-              Notice.map(function(n){
+              Notice.map(function(n,index){
                 var reviewnotice = `
                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start /active/">
                 <div class="d-flex w-100 justify-content-between">
-                <h5 id="title" class="mb-1">Title: ${n.title}</h5>
+                <h5 id="title-${index}" class="mb-1">Title: ${n.title}</h5>
                 <small id="date">Start Date: ${new Date(n.startDate).toDateString()}</small>
                 </div>
                 <p id="body" contenteditable="true" class="mb-1">${n.body}</p>
@@ -79,10 +79,9 @@
        setInterval(function(){
      // 30000 - it will take 10 secounds in total from the top of the page to the bottom
         $("html, body").animate({ scrollTop: $(document).height() }, 15000);
-        setTimeout(function() {
-        $('html, body').animate({scrollTop:0}, ); 
-        },);
-            
+          setTimeout(function() {
+            $('html, body').animate({scrollTop:0}, ); 
+          },);  
         },);
 
 

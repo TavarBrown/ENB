@@ -135,6 +135,12 @@
 
 <script>
 
+$(document).ready(function(){
+    if (localStorage.getItem("admin")!="true"){
+      window.location.replace("notices.html"),
+      alert("Restricted Access!");
+    }
+
     document.getElementById("registerUser").addEventListener("click", function (e){
       e.preventDefault();
       var userID = $("#userID").val();
@@ -170,7 +176,7 @@
     document.getElementById("search").addEventListener("click", function(e){
       e.preventDefault();
       var findUserID = $("#searchUserID").val();
-    //  alert();
+      //alert();
       $.get("http://localhost:5000/users/"+findUserID, function(User,status){
           document.getElementById("foundUserID").innerHTML = User.user_id;
           document.getElementById("foundUsername").innerHTML = User.name;
@@ -178,23 +184,24 @@
           document.getElementById("foundEmail").innerHTML = User.email_address;
 
       });
-});
-document.getElementById("delete").addEventListener("click", function (e){
+    });
+    
+    document.getElementById("delete").addEventListener("click", function (e){
       e.preventDefault();
       var deleteUserID = document.getElementById("foundUserID").innerHTML;
-
-          $.ajax({
-            url: 'http://localhost:5000/users/' + deleteUserID,
-            method: 'DELETE',
-            success: function(){
-              alert('User has been deleted');
-            },
-            error: function (error){
-              alert(error);
-            } 
-        })
-
+      
+      $.ajax({
+        url: 'http://localhost:5000/users/' + deleteUserID,
+        method: 'DELETE',
+        success: function(){
+          alert('User has been deleted');
+        },
+        error: function (error){
+          alert(error);
+        } 
+      })
     })
+
     document.getElementById("update").addEventListener("click", function (e){
       e.preventDefault();
       var updateUserID = document.getElementById("foundUserID").innerHTML;
@@ -202,6 +209,7 @@ document.getElementById("delete").addEventListener("click", function (e){
       var emailAddress = document.getElementById("foundEmail").innerHTML;
       var location_accessible = document.getElementById("foundLocation").innerHTML;
       console.log(username);
+      
       $.ajax("http://localhost:5000/users/" + updateUserID, {
         contentType: 'application/json',
         type: 'PUT',
@@ -221,19 +229,13 @@ document.getElementById("delete").addEventListener("click", function (e){
       });
 
     });
+    
     document.getElementById("logout").addEventListener("click", function (e){
-    e.preventDefault();
+      e.preventDefault();
             localStorage.removeItem("loggedIn"),
+            localStorage.removeItem("admin"),
             window.location.replace("index.html");
-  })
-   
-  </script>
-
-
-
-
-
-
-
-
+    })
+  });
+    </script>
 </html>

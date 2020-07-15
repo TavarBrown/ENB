@@ -89,7 +89,7 @@ router.post("/", (request, response) => {
 
 })
 
-router.delete("/:notice_id",(request,response) => {
+router.delete("/delete/:notice_id",(request,response) => {
     let notice_id = request.params.notice_id;
     Notice.findOneAndDelete ({notice_id:notice_id} , (error, notice)=>{
         if (error){
@@ -101,7 +101,7 @@ router.delete("/:notice_id",(request,response) => {
 
 });
 
-router.put("/:notice_id",(request, response) => {
+router.put("/update/:notice_id",(request, response) => {
 
     let notice_id = request.params.notice_id;
     Notice.findOneAndUpdate ({notice_id}, {

@@ -78,13 +78,17 @@
 <script>
     $(document).ready(function() {
       console.log("success");
-      reviewTheseNotices();
+      if (localStorage.getItem("admin")!="true"){
+        window.location.replace("notices.html"),
+        alert("Restricted Access!");
+      }
+        reviewTheseNotices();
        });
 
        function handleAccept (e){
          var reviewedID=e.getAttribute("noticeID") ;
 
-         $.ajax("http://localhost:5000/notices/" + reviewedID, {
+         $.ajax("http://172.16.188.69:5000/notices/" + reviewedID, {
         contentType: 'application/json',
         type: 'PUT',
         data: JSON.stringify({
@@ -102,14 +106,34 @@
       });
 
        }
+       function handleReject (e){
+         var reviewedID=e.getAttribute("noticeID") ;
+
+         $.ajax("http://172.16.188.69:5000/notices/delete/" + reviewedID, {
+        contentType: 'application/json',
+        type: 'DELETE',
+        data: JSON.stringify({
+        }),
+
+        success: function(){
+              alert('Notice has been rejected and deleted');
+              reviewTheseNotices();
+            },
+            error: function (error){
+              alert(error);
+            } 
+
+      });
+
+       }
     function reviewTheseNotices(){
 
-      $.get("http://localhost:5000/notices/reviewNotices", function (Notice,status){
+      $.get("http://172.16.188.69:5000/notices/reviewNotices", function (Notice,status){
         
         if (status=='success'){
           console.log(Notice);
            $("#reviewThese").html ("");
-          Notice.map(function(n){
+          Notice.map(n => {
             var reviewnotice = `
             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start /active/">
             <div class="d-flex w-100 justify-content-between">
@@ -123,13 +147,12 @@
             </a>
             <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-success" onclick="handleAccept(this)" noticeID ="${n.notice_id}" ><i class="fas fa-check"></i>  Accept</button>
-            <button type="button" class="btn btn-danger"><i class="fas fa-times"></i> Decline</button>
+            <button type="button" class="btn btn-danger" onclick="handleReject(this)" noticeID="${n.notice_id}"><i class="fas fa-times"></i> Decline</button>
             </div>
             <br>`
             $("#reviewThese").append (reviewnotice);
 
-          })
-
+          })   
         }
         else {
           console.log (status);
@@ -139,6 +162,7 @@
     document.getElementById("logout").addEventListener("click", function (e){
     e.preventDefault();
             localStorage.removeItem("loggedIn"),
+            localStorage.removeItem("admin"),
             window.location.replace("index.html");
   })
 

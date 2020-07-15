@@ -129,6 +129,13 @@
 
 <script>
 
+$(document).ready(function(){
+  if (localStorage.getItem("admin")!="true"){
+      window.location.replace("notices.html"),
+      alert("Restricted Access!");
+    }
+
+
   document.getElementById("registerBoard").addEventListener("click", function (e){
     e.preventDefault();
     var boardID = $("#boardID").val();
@@ -149,6 +156,7 @@
     });
 
   });
+  
   document.getElementById("search").addEventListener("click", function(e){
       e.preventDefault();
       var findBoardID = $("#searchBoardID").val();
@@ -161,7 +169,7 @@
       });
 });
 
-document.getElementById("delete").addEventListener("click", function (e){
+  document.getElementById("delete").addEventListener("click", function (e){
       e.preventDefault();
       var deleteBoardID = document.getElementById("foundBoardID").innerHTML;
 
@@ -177,7 +185,8 @@ document.getElementById("delete").addEventListener("click", function (e){
         })
 
     })
-    document.getElementById("update").addEventListener("click", function (e){
+  
+  document.getElementById("update").addEventListener("click", function (e){
       e.preventDefault();
       var updateBoardID = document.getElementById("foundBoardID").innerHTML;
       var type = document.getElementById("foundType").innerHTML;
@@ -200,16 +209,15 @@ document.getElementById("delete").addEventListener("click", function (e){
       });
 
     });
-document.getElementById("logout").addEventListener("click", function (e){
+
+  document.getElementById("logout").addEventListener("click", function (e){
     e.preventDefault();
             localStorage.removeItem("loggedIn"),
+            localStorage.removeItem("admin"),
             window.location.replace("index.html");
   })
+})
+
 </script>
 
-
-
-
-
-
-</html>
+</html> 
