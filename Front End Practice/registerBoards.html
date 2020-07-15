@@ -1,0 +1,215 @@
+<html>
+<head>
+    <title>Boards</title>
+    <link rel="stylesheet" href="registration.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script   src="https://code.jquery.com/jquery-3.4.1.min.js"   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+
+</head>
+
+<body>
+    
+        <section id = "nav-bar">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                          <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                  <a class="nav-link" href="notices.html" ><i class="fas fa-rss-square"></i> Notices</a>
+                                </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="appNotices.html" ><i class="fas fa-tasks"></i> Approve Notices</a>
+                                </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="addNotices.html"><i class="fas fa-folder-plus"></i> Add Notice</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="registerUsers.html"><i class="fas fa-users-cog"></i> Users</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link"><i class="fas fa-chalkboard-teacher"></i> Boards</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="lcdNotices.html"><i class="fas fa-tv"></i> LCD Notices</a>
+                            </li>
+                            <li class="nav-item">
+                                    <a href="index.html" id = "logout" class="btn btn-primary" role="button" aria-disabled="true">Logout</a>  
+                            </li>
+                          </ul>
+                        </div>
+                      </nav>
+        
+        </section>
+
+        <!---------------------Banner Section---------------->
+<section id= "banner">
+    <div class="container1">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="promo-title">NEW BOARD REGISTRATION</p>
+                <p>These registered boards will now available for posting</p>
+                
+            </div>
+        </div>
+    </div>
+
+</section>
+
+        <section id =form>
+            <form class = container> 
+                    BoardID:<br>
+                    <input id="boardID" type="text" name="boardID"><br><br>
+                    Board Type:<br>
+                    <input id =type type="text" name="type"><br>
+                    <a class= "note" >(eg: LCD Board, LED Matrix)</a><br><br>
+                    Location Accessible:<br>
+                    <input id =location_accessible type="text" name="location_accessible"><br>
+                    <a class= "note" >(eg: Faculty of Engineering, Faculty of Social Sciences, Administration, SASS.)</a><br><br>
+
+                    <button type="reset" class="btn btn-outline-dark btn-sm" value="reset">Reset</button>
+                    <br>
+                    <br>
+                    <button id =registerBoard type="button" class="btn btn-outline-success btn-lg">Register Board</button>
+
+            </form>
+
+        </section>
+
+      </section>
+
+      <section id= "banner">
+        <div class="container1">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="promo-title">FIND BOARDS </p>
+                    <p>Find boards by their ID number</p>
+                    
+                </div>
+            </div>
+        </div>
+    
+    </section>
+
+      <section id= "appNotices">
+        <div class= "container" >
+          <div class="list-group">
+            <div class="search">
+              Find Board by ID:<br>
+                          <input id="searchBoardID" type="text" name="boardID">
+                      <button id="search" type="button" class="btn btn-outline-dark btn-sm">Search</button>
+            </div>
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start /active/">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 id="foundBoardID" class="mb-1"></h5>
+              </div>
+              <p id="foundLocation" contenteditable="true" class="mb-1"></p>
+              <small id="foundType"></small>
+            </a>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" id="update" class="btn btn-light"><i class="far fa-edit"></i> Update</button> 
+              <button type="button" id="delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</button>
+            </div>
+          
+              <br>
+         
+      
+          </div>
+        </div>
+          
+      
+      
+      
+      </section>
+</body>
+
+<script>
+
+  document.getElementById("registerBoard").addEventListener("click", function (e){
+    e.preventDefault();
+    var boardID = $("#boardID").val();
+    var type = $("#type").val(); 
+    var location_accessible = $("#location_accessible").val();
+    console.log(boardID);
+    $.ajax("http://localhost:5000/boards", {
+      contentType: 'application/json',
+      data: JSON.stringify({
+        "board_id": boardID,
+        "type": type,
+        "location": location_accessible
+      }),
+
+      type: "POST"
+
+      
+    });
+
+  });
+  document.getElementById("search").addEventListener("click", function(e){
+      e.preventDefault();
+      var findBoardID = $("#searchBoardID").val();
+    //  alert();
+      $.get("http://localhost:5000/boards/"+findBoardID, function(Board,status){
+          document.getElementById("foundBoardID").innerHTML = Board.board_id;
+          document.getElementById("foundType").innerHTML = Board.type;
+          document.getElementById("foundLocation").innerHTML = Board.location;
+
+      });
+});
+
+document.getElementById("delete").addEventListener("click", function (e){
+      e.preventDefault();
+      var deleteBoardID = document.getElementById("foundBoardID").innerHTML;
+
+          $.ajax({
+            url: 'http://localhost:5000/boards/' + deleteBoardID,
+            method: 'DELETE',
+            success: function(){
+              alert('Board has been deleted')
+            },
+            error: function (error){
+              alert(error);
+            } 
+        })
+
+    })
+    document.getElementById("update").addEventListener("click", function (e){
+      e.preventDefault();
+      var updateBoardID = document.getElementById("foundBoardID").innerHTML;
+      var type = document.getElementById("foundType").innerHTML;
+      var location_accessible = document.getElementById("foundLocation").innerHTML;
+      $.ajax("http://localhost:5000/boards/" + updateBoardID, {
+        contentType: 'application/json',
+        type: 'PUT',
+        data: JSON.stringify({
+          "board_id": updateBoardID,
+          "type":type,
+          "location": location_accessible
+        }),
+        success: function(){
+              alert('Board has been updated');
+            },
+            error: function (error){
+              alert(error);
+            } 
+
+      });
+
+    });
+document.getElementById("logout").addEventListener("click", function (e){
+    e.preventDefault();
+            localStorage.removeItem("loggedIn"),
+            window.location.replace("index.html");
+  })
+</script>
+
+
+
+
+
+
+</html>

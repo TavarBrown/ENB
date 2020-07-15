@@ -1,0 +1,239 @@
+<html>
+<head>
+    <title>Users</title>
+    <link rel="stylesheet" href="registration.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script   src="https://code.jquery.com/jquery-3.4.1.min.js"   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+
+</head>
+
+<body>
+    
+        <section id = "nav-bar">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                          <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                  <a class="nav-link" href="notices.html" ><i class="fas fa-rss-square"></i> Notices</a>
+                                </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="appNotices.html" ><i class="fas fa-tasks"></i> Approve Notices</a>
+                                </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="addNotices.html"><i class="fas fa-folder-plus"></i> Add Notice</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" ><i class="fas fa-users-cog"></i> Users</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="registerBoards.html"><i class="fas fa-chalkboard-teacher"></i> Boards</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="lcdNotices.html"><i class="fas fa-tv"></i> LCD Notices</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                    <a href="index.html" id = "logout" class="btn btn-primary" role="button" aria-disabled="true">Logout</a>  
+                            </li>
+                          </ul>
+                        </div>
+                      </nav>
+        
+        </section>
+
+        <!---------------------Banner Section---------------->
+<section id= "banner">
+    <div class="container1">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="promo-title">NEW USER REGISTRATION</p>
+                <p>These registered users will now have authorization to submit notices for approval</p>
+                
+            </div>
+        </div>
+    </div>
+
+</section>
+
+        <section id =form>
+            <form class = container> 
+                    Username:<br>
+                    <input id =username type="text" required=true name="username"><br><br>
+                    UserID:<br>
+                    <input id =userID type="text" name="userID"><br><br>
+                    Email Address:<br>
+                    <input id =emailAddress type="email" name="emailAddress"><br><br>
+                    Location Accessible:<br>
+                    <input id =location_accessible type="text" name="location_accessible"><br>
+                    <a class= "note" >(eg: Faculty of Engineering, Faculty of Social Sciences, Administration, SASS.)</a><br><br>
+                    Password:<br>
+                    <input type="password" name="password"><br><br>
+                    Confirm Password:<br>
+                    <input id =password type="password" name="password"><br><br>
+                    <button type="reset" class="btn btn-outline-dark btn-sm" value="reset">Reset</button>
+                    <br>
+                    <br>
+                    <button id =registerUser type="button" class="btn btn-outline-success btn-lg">Register User</button>
+            </form>
+
+
+
+
+        </section>
+
+        <section id= "banner">
+          <div class="container1">
+              <div class="row">
+                  <div class="col-md-6">
+                      <p class="promo-title">FIND USERS </p>
+                      <p>Find users by their ID number</p>
+                      
+                  </div>
+              </div>
+          </div>
+      
+      </section>
+
+        <section id= "appNotices">
+          <div class= "container" >
+            <div class="list-group">
+              <div class="search">
+                Find User by ID:<br>
+                            <input id="searchUserID" type="text" name="userID">
+                        <button id="search" type="button" class="btn btn-outline-dark btn-sm">Search</button>
+              </div>
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start /active/">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 id="foundUserID" class="mb-1"></h5>
+                  <small id="foundEmail" contenteditable="true"></small>
+                </div>
+                <p id="foundUsername" contenteditable="true" class="mb-1"></p>
+                <small id="foundLocation" contenteditable="true"></small>
+              </a>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button id="update" type="button" class="btn btn-light"><i class="far fa-edit"></i> Update</button> 
+                <button id="delete" type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</button>
+              </div>
+            
+                <br>
+           
+        
+            </div>
+          </div>
+            
+        
+        
+        
+        </section>
+</body>
+
+<script>
+
+    document.getElementById("registerUser").addEventListener("click", function (e){
+      e.preventDefault();
+      var userID = $("#userID").val();
+      var username = $("#username").val(); 
+      var emailAddress = $("#emailAddress").val();
+      var password = $("#password").val();
+      var location_accessible = $("#location_accessible").val();
+      console.log(username);
+      $.ajax("http://localhost:5000/users", {
+        contentType: 'application/json',
+        data: JSON.stringify({
+          "user_id": userID,
+          "name": username,
+          "email_address": emailAddress,
+          "password": password,
+          "location_accessible": location_accessible
+        }),
+
+        success: function(){
+              alert('User has been registered');
+            },
+            error: function (error){
+              alert(error);
+            }, 
+
+        type: "POST"
+
+        
+      });
+
+    });
+
+    document.getElementById("search").addEventListener("click", function(e){
+      e.preventDefault();
+      var findUserID = $("#searchUserID").val();
+    //  alert();
+      $.get("http://localhost:5000/users/"+findUserID, function(User,status){
+          document.getElementById("foundUserID").innerHTML = User.user_id;
+          document.getElementById("foundUsername").innerHTML = User.name;
+          document.getElementById("foundLocation").innerHTML = User.location_accessible;
+          document.getElementById("foundEmail").innerHTML = User.email_address;
+
+      });
+});
+document.getElementById("delete").addEventListener("click", function (e){
+      e.preventDefault();
+      var deleteUserID = document.getElementById("foundUserID").innerHTML;
+
+          $.ajax({
+            url: 'http://localhost:5000/users/' + deleteUserID,
+            method: 'DELETE',
+            success: function(){
+              alert('User has been deleted');
+            },
+            error: function (error){
+              alert(error);
+            } 
+        })
+
+    })
+    document.getElementById("update").addEventListener("click", function (e){
+      e.preventDefault();
+      var updateUserID = document.getElementById("foundUserID").innerHTML;
+      var username = document.getElementById("foundUsername").innerHTML; 
+      var emailAddress = document.getElementById("foundEmail").innerHTML;
+      var location_accessible = document.getElementById("foundLocation").innerHTML;
+      console.log(username);
+      $.ajax("http://localhost:5000/users/" + updateUserID, {
+        contentType: 'application/json',
+        type: 'PUT',
+        data: JSON.stringify({
+          "user_id":updateUserID,
+          "name": username,
+          "email_address": emailAddress,
+          "location_accessible": location_accessible
+        }),
+        success: function(){
+              alert('User has been updated');
+            },
+            error: function (error){
+              alert(error);
+            } 
+
+      });
+
+    });
+    document.getElementById("logout").addEventListener("click", function (e){
+    e.preventDefault();
+            localStorage.removeItem("loggedIn"),
+            window.location.replace("index.html");
+  })
+   
+  </script>
+
+
+
+
+
+
+
+
+</html>

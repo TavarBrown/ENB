@@ -1,0 +1,89 @@
+*
+{
+    margin: 0;
+    padding: 0;
+
+}
+
+body{
+
+    font-family: sans-serif;
+
+}
+
+#nav-bar 
+{
+    position: sticky;
+    top: 0;
+    z-index:10;
+}
+
+.navbar
+{
+  background-image: repeating-linear-gradient(to right, rgba(40, 108, 148, 0.979), rgba(40, 108, 148, 0.979));
+    
+}
+
+
+.navbar-nav li{
+    padding: 0 10px;
+}
+
+.navbar-nav li a
+{
+    color: #fff !important;
+    font-weight: 600;
+}
+
+.navbar-toggler
+{
+    outline: none;
+}
+/*----------------banner section----------------*/
+
+#banner
+{
+   background-color: rgba(40, 108, 148, 0.979);
+    color: white;
+    padding: 1% ;
+}
+
+.promo-title
+{
+    font-size: 40px;
+    font-weight: 600;
+  
+}
+
+
+#appNotices p {
+
+    text-align:center;
+    font-family: sans-serif;
+    color: black;
+    padding: 10%;
+    font-weight: 300;
+    margin: 1%;
+   
+    
+}
+
+.container{
+    margin: 3%;
+    padding: 1%;
+}
+
+.search{
+    font-size: 30px;
+    padding-bottom: 3%;
+}
+
+.fa-check-circle  {
+  color: green;
+  font-size: 20px;
+  padding-right: 5%;
+}
+
+.mb-1 {
+    font-size: 30px;
+}

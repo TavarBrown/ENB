@@ -1,0 +1,152 @@
+<html>
+<head>
+    <title>New Notices</title>
+    <title>New Notice</title>
+    <link rel="stylesheet" href="registration.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script   src="https://code.jquery.com/jquery-3.4.1.min.js"   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+</head>
+
+<body>
+    
+        <section id = "nav-bar">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                          <ul class="navbar-nav ml-auto">
+                            
+                                <li class="nav-item">
+                                  <a class="nav-link" href="notices.html"  ><i class="fas fa-rss-square"></i> Notices</a>
+                                </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="appNotices.html" ><i class="fas fa-tasks"></i> Approve Notices</a>
+                                </li>
+                            <li class="nav-item">
+                              <a class="nav-link" ><i class="fas fa-folder-plus"></i> Add Notice</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="registerUsers.html"><i class="fas fa-users-cog"></i> Users</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="registerBoards.html"><i class="fas fa-chalkboard-teacher"></i> Boards</a>
+                            </li>
+
+                            <li class="nav-item">
+                              <a class="nav-link" href="lcdNotices.html"><i class="fas fa-tv"></i> LCD Notices</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                    <a href="index.html" id = "logout" class="btn btn-primary" role="button" aria-disabled="true">Logout</a>  
+                            </li>
+                          </ul>
+                        </div>
+                      </nav>
+        
+        </section>
+
+        <!---------------------Banner Section---------------->
+<section id= "banner">
+        <div class="container1">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="promo-title">SUBMIT NEW NOTICES</p>
+                    <p>These notices will be submitted for administrative approval</p>
+                    
+                </div>
+            </div>
+        </div>
+    
+    </section>
+
+        <section id =form>
+            <form class = container> 
+                    Username<br>
+                    <input id="username" type="text" name="username"><br><br>
+                    Notice ID:<br>
+                    <input id="noticeID" type="text" name="noticeID"><br><br>
+                    Title of Notice:<br>
+                    <input id="title" type="text" name="title"><br><br>
+                    Message:<br>
+                    <input id="message" class="message" type="text" name="userID"><br><br>
+                      <label for="exampleFormControlFile1">Add Image/Video:</label>
+                      <div id="exampleFormControlFile1">
+                      <input type="file">
+                    </div> <br><br>
+                    Start Date:<br>
+                    <input id="startDate" type="date" name="startDate"><br><br>
+                    Stop Date:<br>
+                    <input id="stopDate" type="date" name="stopDate"><br><br>
+                    Enter Location:<br>
+                    <input id =location type="text" name="location"><br>
+                    <a class= "note" >(Only authorized locations will be approved!)</a><br>
+                    <a class= "note" >(eg: Faculty of Engineering, Faculty of Social Sciences, Administration, SASS.)</a><br><br>
+
+                    
+                    <button type="reset" class="btn btn-outline-dark btn-sm" value="reset">Reset</button>
+                    <br>
+                    <br>
+                    <button id="addNotice" type="button" class="btn btn-outline-success btn-lg">Add Notice</button>
+                    
+
+            </form>
+
+
+
+
+        </section>
+
+</body>
+
+<script>
+  document.getElementById("addNotice").addEventListener("click", function (e){
+    e.preventDefault();
+    var username = $("#username").val();
+    var noticeID = $("#noticeID").val();
+    var title = $("#title").val();
+    var message = $("#message").val(); 
+    var location= $("#location").val();
+    var startDate = $("#startDate").val();
+    var stopDate = $("#stopDate").val();
+
+    console.log(noticeID);
+    $.ajax("http://localhost:5000/notices", {
+      contentType: 'application/json',
+      data: JSON.stringify({
+        "notice_id": noticeID,
+        "user": username,
+        "title": title,
+        "body": message,
+        "location": location,
+        "startDate": startDate,
+        "stopDate": stopDate,
+      }),
+
+      type: "POST"
+
+      
+    });
+
+  });
+  
+  document.getElementById("logout").addEventListener("click", function (e){
+    e.preventDefault();
+            localStorage.removeItem("loggedIn"),
+            window.location.replace("index.html");
+  })
+
+</script>
+  
+
+
+
+
+
+
+
+
+</html>
