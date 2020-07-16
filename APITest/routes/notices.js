@@ -54,7 +54,7 @@ router.get("/lcdNotices", (request, response) => {
 });
 
 router.get("/:notice_id", (request, response) => {
-    
+    console.log("Getting notice");
 
 Notice.findOne({notice_id: request.params.notice_id},(error,notice) => {
     if (error){

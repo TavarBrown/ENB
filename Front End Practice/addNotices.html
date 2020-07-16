@@ -121,7 +121,7 @@
     var stopDate = $("#stopDate").val();
 
     console.log(noticeID);
-    $.ajax("http://172.16.188.69:5000/notices", {
+    $.ajax("http://192.168.0.24:5000/notices", {
       contentType: 'application/json',
       data: JSON.stringify({
         "notice_id": noticeID,

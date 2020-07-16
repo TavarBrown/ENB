@@ -88,7 +88,7 @@
        function handleAccept (e){
          var reviewedID=e.getAttribute("noticeID") ;
 
-         $.ajax("http://172.16.188.69:5000/notices/" + reviewedID, {
+         $.ajax("http://192.168.0.24:5000/notices/" + reviewedID, {
         contentType: 'application/json',
         type: 'PUT',
         data: JSON.stringify({
@@ -109,7 +109,7 @@
        function handleReject (e){
          var reviewedID=e.getAttribute("noticeID") ;
 
-         $.ajax("http://172.16.188.69:5000/notices/delete/" + reviewedID, {
+         $.ajax("http://192.168.0.24:5000/notices/delete/" + reviewedID, {
         contentType: 'application/json',
         type: 'DELETE',
         data: JSON.stringify({
@@ -128,7 +128,7 @@
        }
     function reviewTheseNotices(){
 
-      $.get("http://172.16.188.69:5000/notices/reviewNotices", function (Notice,status){
+      $.get("http://192.168.0.24:5000/notices/reviewNotices", function (Notice,status){
         
         if (status=='success'){
           console.log(Notice);
