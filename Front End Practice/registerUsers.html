@@ -149,7 +149,7 @@ $(document).ready(function(){
       var password = $("#password").val();
       var location_accessible = $("#location_accessible").val();
       console.log(username);
-      $.ajax("http://192.168.0.24:5000/users", {
+      $.ajax("http://192.168.43.242:5000/users", {
         contentType: 'application/json',
         data: JSON.stringify({
           "user_id": userID,
@@ -177,7 +177,7 @@ $(document).ready(function(){
       e.preventDefault();
       var findUserID = $("#searchUserID").val();
       //alert();
-      $.get("http://192.168.0.24:5000/users/"+findUserID, function(User,status){
+      $.get("http://192.168.43.242:5000/users/"+findUserID, function(User,status){
           document.getElementById("foundUserID").innerHTML = User.user_id;
           document.getElementById("foundUsername").innerHTML = User.name;
           document.getElementById("foundLocation").innerHTML = User.location_accessible;
@@ -191,7 +191,7 @@ $(document).ready(function(){
       var deleteUserID = document.getElementById("foundUserID").innerHTML;
       
       $.ajax({
-        url: 'http://192.168.0.24:5000/users/' + deleteUserID,
+        url: 'http://192.168.43.242:5000/users/' + deleteUserID,
         method: 'DELETE',
         success: function(){
           alert('User has been deleted');
@@ -210,7 +210,7 @@ $(document).ready(function(){
       var location_accessible = document.getElementById("foundLocation").innerHTML;
       console.log(username);
       
-      $.ajax("http://192.168.0.24:5000/users/" + updateUserID, {
+      $.ajax("http://192.168.43.242:5000/users/" + updateUserID, {
         contentType: 'application/json',
         type: 'PUT',
         data: JSON.stringify({

@@ -174,7 +174,7 @@ $(document).ready(function(){
       var deleteBoardID = document.getElementById("foundBoardID").innerHTML;
 
           $.ajax({
-            url: 'http://192.168.0.24:5000/boards/' + deleteBoardID,
+            url: 'http://192.168.43.242:5000/boards/' + deleteBoardID,
             method: 'DELETE',
             success: function(){
               alert('Board has been deleted')

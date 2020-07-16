@@ -112,7 +112,7 @@
       var noticeID = $("#noticeID").val();
     //  alert();
    
-      $.get("http://192.168.0.24:5000/notices/"+noticeID, function(Notice,status){
+      $.get("http://192.168.43.242:5000/notices/"+noticeID, function(Notice,status){
         
           document.getElementById("userSearch").innerHTML = Notice.user;
           document.getElementById("bodySearch").innerHTML = Notice.body;
@@ -126,7 +126,7 @@ document.getElementById("delete").addEventListener("click", function (e){
       var deleteNoticeID = $("#noticeID").val();
 
           $.ajax({
-            url: 'http://192.168.0.24:5000/notices/' + deleteNoticeID,
+            url: 'http://192.168.43.242:5000/notices/' + deleteNoticeID,
             method: 'DELETE',
             success: function(){
               alert('Notice has been deleted');
@@ -145,12 +145,12 @@ document.getElementById("delete").addEventListener("click", function (e){
       var date = document.getElementById("date").innerHTML;
       var location = document.getElementById("location").innerHTML;
 
-      $.get("http://192.168.0.24:5000/notices/"+ updateNoticeID, function(Notice,status){
+      $.get("http://192.168.43.242:5000/notices/"+ updateNoticeID, function(Notice,status){
           var title = Notice.title;
           var stopDate = Notice.stopDate;
       });
 
-      $.ajax("http://192.168.0.24:5000/notices/update/" + updateNoticeID, {
+      $.ajax("http://192.168.43.242:5000/notices/update/" + updateNoticeID, {
         contentType: 'application/json',
         type: 'PUT',
         data: JSON.stringify({
@@ -179,7 +179,7 @@ document.getElementById("delete").addEventListener("click", function (e){
 
        function allNotices(){
 
-          $.get("http://192.168.0.24:5000/notices", function (Notice,status){
+          $.get("http://192.168.43.242:5000/notices", function (Notice,status){
             
             if (status=='success'){
               console.log(Notice);

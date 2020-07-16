@@ -50,7 +50,7 @@
   document.getElementById("loginButton").addEventListener("click", function (e){
     e.preventDefault();
     
-      $.ajax("http://192.168.0.24:5000/users/login", {
+      $.ajax("http://192.168.43.242:5000/users/login", {
         contentType: 'application/json',
         type: 'POST',
         data: JSON.stringify({
